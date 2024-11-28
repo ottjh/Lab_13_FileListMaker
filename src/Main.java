@@ -87,7 +87,7 @@ public class Main
             System.out.println("\nNothing to print.");
         }
     }
-    public static void deleteOption(Scanner in, ArrayList<String> myArrList, boolean needsToBeSaved)
+    public static boolean deleteOption(Scanner in, ArrayList<String> myArrList, boolean needsToBeSaved)
     {
         int removalItem;
 
@@ -100,11 +100,12 @@ public class Main
             myArrList.remove(removalItem - 1);
             System.out.println("\nItem successfully removed from the list.");
             needsToBeSaved = true;
-            return;
+            return needsToBeSaved;
         }
+        return needsToBeSaved;
     }
 
-    public static void insertOption (Scanner in, ArrayList<String> myArrList, boolean needsToBeSaved)
+    public static boolean insertOption (Scanner in, ArrayList<String> myArrList, boolean needsToBeSaved)
     {
         int insertIndex;
         String insertItem;
@@ -114,28 +115,34 @@ public class Main
 
         myArrList.add((insertIndex -1), insertItem);
         needsToBeSaved = true;
+        return needsToBeSaved;
     }
 
-    public static void addOption (Scanner in, ArrayList<String> myArrList, boolean needsToBeSaved)
+    public static boolean addOption (Scanner in, ArrayList<String> myArrList, boolean needsToBeSaved)
     {
         myArrList.add(SafeInput.getNonZeroLenString(in,"Please enter a name"));
         //Feels like a waste to make a one line method that contains usage of a method.
         //But it is by the rubric.
         needsToBeSaved = true;
+        return needsToBeSaved;
     }
-    public static void openOption (JFileChooser chooser, Scanner in, ArrayList<String> myArrList, boolean needsToBeSaved)
+
+    public static boolean openOption (JFileChooser chooser, Scanner in, ArrayList<String> myArrList, boolean needsToBeSaved)
     {
         boolean userSaveOverride = false;
         if (needsToBeSaved)
         {
             userSaveOverride = SafeInput.getYNConfirm(in, "You have unsaved work. Are you sure that you want to open a new file? [Y/N]");
-            if (userSaveOverride)
-                return;
+            if (userSaveOverride) {
+
+                needsToBeSaved = false;
+                return needsToBeSaved;
+            }
             else
             {
 
 
-                needsToBeSaved = false;
+                return needsToBeSaved;
             }
         }
         else
@@ -143,6 +150,22 @@ public class Main
 
 
             needsToBeSaved = false;
+            return needsToBeSaved;
         }
+    }
+
+    public static void moveOption (Scanner in, ArrayList<String> myArrList, boolean needsToBeSaved)
+    {
+
+    }
+
+    public static void saveOption (Scanner in,ArrayList<String> myArrList, boolean needsToBeSaved)
+    {
+
+    }
+
+    public static void clearOption (ArrayList<String> myArrList, boolean needsToBeSaved)
+    {
+
     }
 }
