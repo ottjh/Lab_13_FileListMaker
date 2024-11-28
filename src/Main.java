@@ -45,13 +45,13 @@ public class Main
                     openOption(chooser,in, myArrList, needsToBeSaved);
                     break;
                 case "M","m":
-                    moveOption();
+                    moveOption(in,myArrList, needsToBeSaved);
                     break;
                 case "S","s":
-                    saveOption(myArrList, needsToBeSaved);
+                    saveOption(in, myArrList, needsToBeSaved);
                     break;
                 case "C","c":
-                    clearOption();
+                    clearOption(myArrList, needsToBeSaved);
                     break;
             }
 
