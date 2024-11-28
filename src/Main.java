@@ -20,7 +20,7 @@ public class Main
         //Now there needs to be a do while loop that will "trap" the user until they decide to exit.
         do {
             menuChoice = "";
-            menuChoice = SafeInput.getRegExString(in, "Do you want to: Add something to the list? Delete an item from the list? Move an item in the list?\nInsert an item into the list? Open a new file? View the list? Quit the program? [A,D,M,I,O,V,Q]", "[AaDdMmIiOoVvQq]");
+            menuChoice = SafeInput.getRegExString(in, "Do you want to: Add something to the list? Delete an item from the list? Move an item in the list?\nInsert an item into the list? Open a new file? View the list? Save the list? Clear the list? Quit the program? [A,D,M,I,O,V,S,C,Q]", "[AaDdMmIiOoVvSsCcQq]");
 
             //System.out.println(); //Clear line to break things up
 
