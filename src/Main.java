@@ -22,7 +22,7 @@ public class Main
         boolean needsToBeSaved = false;
         ArrayList<String> myArrList = new ArrayList<>();
         JFileChooser chooser = new JFileChooser();
-        String fileName = null;
+        String fileName = "";
 
         //It does say there is an error in my program, but I have yet to encounter it in any fashion despite running it multiple times.
         //Now there needs to be a do while loop that will "trap" the user until they decide to exit.
@@ -271,7 +271,7 @@ public class Main
 
     public static String saveOption (Scanner in,ArrayList<String> myArrList, boolean needsToBeSaved, String fileName)
     {
-        if(fileName.isEmpty()) //Need to test that the file has a name, so it isn't annoying to save same file.
+        if(fileName.equals("")) //Need to test that the file has a name, so it isn't annoying to save same file.
         {
             fileName = SafeInput.getNonZeroLenString(in, "Enter the desired filename");
             fileName = fileName + ".txt";
