@@ -22,7 +22,7 @@ public class Main
         boolean needsToBeSaved = false;
         ArrayList<String> myArrList = new ArrayList<>();
         JFileChooser chooser = new JFileChooser();
-        String fileName = "";
+        String fileName = null;
 
         //It does say there is an error in my program, but I have yet to encounter it in any fashion despite running it multiple times.
         //Now there needs to be a do while loop that will "trap" the user until they decide to exit.
@@ -50,13 +50,13 @@ public class Main
                     done = quitOption(in, needsToBeSaved);
                     break;
                 case "O", "o":
-                    needsToBeSaved = openOption(chooser, in, myArrList, needsToBeSaved, fileName);
+                    fileName = openOption(chooser, in, myArrList, needsToBeSaved, fileName);
                     break;
                 case "M", "m":
                     needsToBeSaved = moveOption(in, myArrList, needsToBeSaved);
                     break;
                 case "S", "s":
-                    needsToBeSaved = saveOption(in, myArrList, needsToBeSaved, fileName);
+                    fileName = saveOption(in, myArrList, needsToBeSaved, fileName);
                     break;
                 case "C", "c":
                     needsToBeSaved = clearOption(myArrList, needsToBeSaved);
@@ -142,7 +142,7 @@ public class Main
         return needsToBeSaved;
     }
 
-    public static boolean openOption (JFileChooser chooser, Scanner in, ArrayList<String> myArrList, boolean needsToBeSaved, String fileName)
+    public static String openOption (JFileChooser chooser, Scanner in, ArrayList<String> myArrList, boolean needsToBeSaved, String fileName)
     {
 
         boolean userSaveOverride = false;
@@ -179,7 +179,7 @@ public class Main
                             System.out.printf("\nLine %4d %-60s ", line, rec);
                         }
                         reader.close();
-                        System.out.println("\nData file read.");
+                        System.out.println("\nData file read. Data file name: " + fileName);
                     } else {
                         System.out.println("No file selected!!! ... exiting.\nRun the program again and select a file.");
                     }
@@ -195,11 +195,11 @@ public class Main
                 }
 
                 needsToBeSaved = false;
-                return needsToBeSaved;
+                return fileName;
             }
             else
             {
-                return needsToBeSaved; //They don't want to override here, so this should be the end for this train of logic?
+                return fileName; //They don't want to override here, so this should be the end for this train of logic?
             }
         }
         else
@@ -229,7 +229,7 @@ public class Main
                         System.out.printf("\nLine %4d %-60s ", line, rec);
                     }
                     reader.close();
-                    System.out.println("\nData file read.");
+                    System.out.println("\nData file read. Data file name: " + fileName);
                 } else {
                     System.out.println("No file selected!!! ... exiting.\nRun the program again and select a file.");
                 }
@@ -245,7 +245,7 @@ public class Main
             }
 
             needsToBeSaved = false;
-            return needsToBeSaved;
+            return fileName;
         }
     }
 
@@ -269,10 +269,13 @@ public class Main
         }
     }
 
-    public static boolean saveOption (Scanner in,ArrayList<String> myArrList, boolean needsToBeSaved, String fileName)
+    public static String saveOption (Scanner in,ArrayList<String> myArrList, boolean needsToBeSaved, String fileName)
     {
-        fileName = SafeInput.getNonZeroLenString(in, "Enter the desired filename");
-        fileName = fileName + ".txt";
+        if(fileName.isEmpty()) //Need to test that the file has a name, so it isn't annoying to save same file.
+        {
+            fileName = SafeInput.getNonZeroLenString(in, "Enter the desired filename");
+            fileName = fileName + ".txt";
+        }
 
         File workingDirectory = new File(System.getProperty("user.dir"));
         Path file = Paths.get(workingDirectory.getPath() + "\\src", fileName);
@@ -298,7 +301,7 @@ public class Main
         {
             e.printStackTrace();
         }
-        return needsToBeSaved;
+        return fileName;
     }
 
     public static boolean clearOption (ArrayList<String> myArrList, boolean needsToBeSaved)
